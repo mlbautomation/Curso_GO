@@ -1,10 +1,7 @@
 package main
 
 import (
-	"log"
-
-	"github.com/mlbautomation/Curso_GO/03_Go_MySQL/pkg"
-	"github.com/mlbautomation/Curso_GO/03_Go_MySQL/storage"
+	"github.com/mlbautomation/Curso_GO/03_Go_MySQL/database"
 )
 
 func main() {
@@ -34,33 +31,7 @@ func main() {
 		tipo.Tipo()
 		interfaces.Interfaces()
 		factura.Facturar()
+		database.Database()
 	*/
-
-	db := storage.NewMySQLDB()
-
-	//Creando la tabla en MySQL - products
-	storageProduct := storage.NewMySQLProduct(db)
-	//storageProduct := storage.NewMySQLProduct(storage.Pool())
-	serviceProduct := pkg.NewService(storageProduct)
-	//if err := storageProduct.Migrate(); err != nil {
-	if err := serviceProduct.Migrate(); err != nil {
-		log.Fatalf("Migrate() en tabla products: %v", err)
-	}
-
-	//Creando la tabla en MySQL - clients
-	storageClient := storage.NewMySQLClient(db)
-	//storageClient := storage.NewMySQLClient(storage.Pool())
-	serviceProduct = pkg.NewService(storageClient)
-	//if err := storageProduct.Migrate(); err != nil {
-	if err := serviceProduct.Migrate(); err != nil {
-		log.Fatalf("Migrate() en tabla clients: %v", err)
-	}
-
-	//Creando la tabla en MySQL - invoice_items
-	storageInvoiceItem := storage.NewMySQLInvoiceItem(db)
-	//storageInvoiceItem := storage.NewMySQLInvoiceItem(storage.Pool())
-	serviceProduct = pkg.NewService(storageInvoiceItem)
-	if err := serviceProduct.Migrate(); err != nil {
-		log.Fatalf("Migrate() en tabla invoice_items: %v", err)
-	}
+	database.Database()
 }
